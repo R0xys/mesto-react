@@ -1,14 +1,19 @@
 import {api} from "../utils/api.js";
 import React from "react";
+import Card from "./Card.js";
 
 function Main(props) {
-
+  const [userName, setUserName] = React.useState("");
+  const [userDescription, setUserDescription ] = React.useState("");
+  const [userAvatar, setUerAvatar] = React.useState("#");
+  const [cards, setCards] = React.useState([]);
   React.useEffect(() => {
     Promise.all([api.getApiData("users/me"), api.getApiData("cards")])
-    .then(([userData, cards]) => {
-      const [userName, setUserName] = userData.name;
-      const [userDescription, setUserDescription ] = userData.about;
-      const [userAvatar, setUerAvatar] = userData.avatar;
+    .then(([userData, cardsData]) => {
+      setUserName(userData.name);
+      setUserDescription(userData.about);
+      setUerAvatar(userData.avatar);
+      setCards(cardsData);
     })
   }, [])
   
@@ -31,6 +36,9 @@ function Main(props) {
       <button onClick={props.onAddPlace} className="profile__add-button zero-button" type="button"></button>
     </section>
     <section className="grid-cards">
+      {cards.map((item) => (
+        <Card key={item._id} onCardClick={props.onCardClick} card={item} />
+      ))}
     </section>
   </main>
   )

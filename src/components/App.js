@@ -8,11 +8,18 @@ import React from 'react';
 function App() {
   function closeAllPopups() {
     document.querySelector(".popup_opened").classList.remove("popup_opened");
+    setSelectedCard("");
+  }
+
+  function handleCardClick(card) {
+    setSelectedCard(card);
+    console.log(selectedCard);
   }
 
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState("")
 
   return (
   <div className="page__content">
@@ -26,6 +33,7 @@ function App() {
     onEditAvatar = {() => {
       setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
     }}
+    onCardClick = {handleCardClick}
     />
     <Footer />
     <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} title="Новое место" name="card-popup" children={(  
@@ -51,20 +59,7 @@ function App() {
       <span className="popup__error avatar-popup-input-src-error"></span>
     </> 
     )}/>
-    <ImagePopup />
-    <template id="card">
-      <article className="card">
-        <button className="card__trash-button zero-button" type="button"></button>
-        <img src="#" className="card__image" alt="#"/>
-        <div className="card__caption">
-          <h2 className="card__title"></h2>
-          <div className="card__wrapper">
-            <button className="card__like-button zero-button" type="button"></button>
-            <p className="card__like-quantity"></p>
-          </div>
-        </div>
-      </article>
-    </template>
+    <ImagePopup card={selectedCard} onClose={closeAllPopups} />
   </div>
   );
 }
