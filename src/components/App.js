@@ -6,6 +6,10 @@ import ImagePopup from "./ImagePopup";
 import React from 'react';
 
 function App() {
+  function closeAllPopups() {
+    document.querySelector(".popup_opened").classList.remove("popup_opened");
+  }
+
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
@@ -24,7 +28,7 @@ function App() {
     }}
     />
     <Footer />
-    <PopupWithForm isOpen="isAddPlacePopupOpen" title="Новое место" name="card-popup" children={(  
+    <PopupWithForm onClose={closeAllPopups} isOpen={isAddPlacePopupOpen} title="Новое место" name="card-popup" children={(  
     <>
       <input type="text" minLength="2" maxLength="30" className="popup__input" placeholder="Название" required id="card-popup-input-title" name="input-title" />
       <span className="popup__error card-popup-input-title-error"></span>
@@ -32,7 +36,7 @@ function App() {
       <span className="popup__error card-popup-input-src-error"></span>
     </> 
     )}/>
-    <PopupWithForm isOpen="isEditProfilePopupOpen" title="Редактировать профиль" name="profile-popup" children={(  
+    <PopupWithForm onClose={closeAllPopups} isOpen={isEditProfilePopupOpen} title="Редактировать профиль" name="profile-popup" children={(  
     <>
       <input type="text" minLength="2" maxLength="40" required className="popup__input" id="profile-popup-input-name" name="input-name" />
       <span className="popup__error profile-popup-input-name-error"></span>
@@ -40,8 +44,8 @@ function App() {
       <span className="popup__error profile-popup-input-job-error"></span>
     </> 
     )}/>
-    <PopupWithForm title="Вы уверены?" name="confirm-popup" children={(<></>)}/>
-    <PopupWithForm isOpen="isEditAvatarPopupOpen" title="Обновить аватар" name="avatar-popup" children={(  
+    <PopupWithForm onClose={closeAllPopups} title="Вы уверены?" name="confirm-popup" children={(<></>)}/>
+    <PopupWithForm onClose={closeAllPopups} isOpen={isEditAvatarPopupOpen} title="Обновить аватар" name="avatar-popup" children={(  
     <>
       <input type="url" className="popup__input" placeholder="Ссылка на картинку" required id="avatar-popup-input-src" name="input-src" />
       <span className="popup__error avatar-popup-input-src-error"></span>
