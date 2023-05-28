@@ -10,7 +10,9 @@ function AddPlacePopup(props) {
     props.onAddPlace({
       name: inputNameRef.current.value,
       link: inputLinkRef.current.value
-    })
+    });
+    inputNameRef.current.value = "";
+    inputLinkRef.current.value = "";
   }
 
   return (

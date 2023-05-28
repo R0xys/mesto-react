@@ -12,15 +12,15 @@ import ConfirmDeletePopup from "./ConfirmDeletePopup";
 
 function App() {
   function handleEditAvatarClick() {
-    setEditAvatarPopupOpen(!isEditAvatarPopupOpen);
+    setEditAvatarPopupOpen(true);
   }
 
   function handleEditProfileClick() {
-    setEditProfilePopupOpen(!isEditProfilePopupOpen);
+    setEditProfilePopupOpen(true);
   }
 
   function handleAddPlaceClick() {
-    setAddPlacePopupOpen(!isAddPlacePopupOpen);
+    setAddPlacePopupOpen(true);
   }
 
   function closeAllPopups() {
@@ -57,6 +57,7 @@ function App() {
     api.deleteCard(card._id)
       .then(() => {
         setCardsList((cardsList) => cardsList.filter(c => card !== c));
+        closeAllPopups();
       })
       .catch((err) => console.log(err))
   }
@@ -120,7 +121,7 @@ function App() {
     <CurrentUserContext.Provider value={{currentUser, cardsList}}>
       <div className="page__content">
         <Header />
-        <Main onCardDelete={handleOpenConfirmDeletePopup} onConfirmDelete onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onCardLike={handleCardLike} />
+        <Main onCardDelete={handleOpenConfirmDeletePopup} onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick} onCardClick={handleCardClick} onCardLike={handleCardLike} />
         <Footer />
         <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
         <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />

@@ -3,7 +3,6 @@ import React from "react";
 function ConfirmDeletePopup(props) {
   function handleClick() {
     props.onConfirm(props.card);
-    props.onClose();
   }
   return (
     <section className={`popup confirm-popup ${props.isOpen && "popup_opened"}`} id="confirm-popup">

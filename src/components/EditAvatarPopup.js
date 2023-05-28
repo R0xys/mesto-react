@@ -8,7 +8,8 @@ function EditAvatarPopup(props) {
     e.preventDefault();
     props.onUpdateAvatar({
       avatar: inputRef.current.value
-    })
+    });
+    inputRef.current.value = "";
   }
 
   return(
