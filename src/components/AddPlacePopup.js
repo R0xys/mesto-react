@@ -11,9 +11,12 @@ function AddPlacePopup(props) {
       name: inputNameRef.current.value,
       link: inputLinkRef.current.value
     });
+  }
+  
+  React.useEffect(() => {
     inputNameRef.current.value = "";
     inputLinkRef.current.value = "";
-  }
+  }, [props.isOpen])
 
   return (
     <PopupWithForm buttonText="Создать" onSubmit={handleSubmit} onClose={props.onClose} isOpen={props.isOpen} title="Новое место" name="card-popup" >
